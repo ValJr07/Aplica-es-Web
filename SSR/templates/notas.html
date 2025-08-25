@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<title>Notas dos Alunos</title>
+<style>
+    .aprovado { color: green; }
+    .reprovado { color: red; }
+</style>
+</head>
+
+<body>
+    <h1>Boletim da Turma</h1>
+    <table border="1">
+        <tr>
+            <th>Aluno</th>
+            <th>Nota</th>
+            <th>Situação</th>
+                </tr>
+                {% for aluno in lista_de_alunos %}
+                <tr>
+            <td>{{ aluno.nome }}</td>
+            <td>{{ aluno.nota }}</td>
+            {% if aluno.nota >= 6.0 %}
+            <td class="aprovado">Aprovado</td>
+            {% else %}
+            <td
+            class="reprovado">Reprovado</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
