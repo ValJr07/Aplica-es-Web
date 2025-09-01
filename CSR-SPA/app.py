@@ -10,8 +10,8 @@ def pagina_app():
 def api_alunos():
     alunos = [
         {'nome': 'Daniela', 'nota': 10.0},
-    {'nome': 'Eduardo', 'nota': 8.0},
-    {'nome': 'Fernanda', 'nota': 5.5}
+        {'nome': 'Eduardo', 'nota': 8.0},
+        {'nome': 'Fernanda', 'nota': 5.5}
     ]
 # Retorna os dados em formato JSON, que o JavaScript entende.
     return jsonify(alunos)

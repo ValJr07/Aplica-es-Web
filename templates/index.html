@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1{
+            color: #333;
+        }
+        nav button{
+            margin: 5px;
+            padding: 10px 15px;
+            border: 1px solid #ccc ;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        nav button:hover{
+            background-color: #e0e0e0;
+        }
+        #container-biografia{
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #eee;
+            background-color: #fafafa;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mini-Dicionario de FIguras Historicos</h1>
+    <p>Selecione um nome para ler a biografia. Observe como a página não recarrega</p>
+
+    <nav>
+        {% for id in personagens %}
+            <button class="seletor-personagem" data-id="{{ id }}">{{ nomes[id]['nome'] }}</button>
+        {% endfor %}
+    </nav>
+    <hr>
+
+    <div id="container-biografia">
+        <h2>Selecione uma pessoa acima</h2>
+        <p></p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
