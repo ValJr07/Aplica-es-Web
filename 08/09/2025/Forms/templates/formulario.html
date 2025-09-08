@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .formgroup{
+            margin-bottom: 15px;
+        }
+        input{
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        input:invalid:not(:placeholder-shown){
+            border-color: red;
+        }
+        input:valid:not(:placeholder-shown){
+            border-color: green;
+        }
+        button{
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+        .flash{
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .flash.success{
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulário de Cadastro</h1>
+    <p>Tente enviar o formulario com dados invalidos para ver a validação do navegador em ação</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/formulario" method="post" novalidate>
+        <div class="formgroup">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" required minlength="3" placeholder=" ">
+        </div>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+</body>
+</html>
