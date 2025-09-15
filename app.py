@@ -1,34 +1,34 @@
-from flask import Flask,render_template,jsonify
+from flask import Flask, render_template, abort
 
-app=Flask(__name__)
+app = Flask(__name__)
 
-dados_biografias = {
-    "santos_dumont": {
-        "nome" : "Santos Dumont",
-        "texto" : "Alberto Santos de Dumont foi um aeronauta, esportista e inventor brasileiro..." 
-    },
-    "marie_curie" : {
-    "nome" : "Marie Curie",
-    "texto" : "Marie Sktodowska Curie foi uma física e química polonesa naturalizada francesa..."
-    },
-    "einstein" : {
-        "nome" : "Albert Einstein",
-        "texto" : "Albert Einstein foi um físico teórico alemão que desenvolveu a teoria da relatividade geral..."
-    }
-}
+@app.route('/')
 
-@app.route("/")
 def index():
-    personagens = dados_biografias.keys()
-    return render_template("index.html", personagens=personagens, nomes=dados_biografias)
+    return render_template('index.html')
 
-@app.route("/biografia/<id_personagem>")
-def get_biografia(id_personagem):
-    biografia_data = dados_biografias.get(id_personagem,{
-        "nome" : "Desconhecido",
-        "texto" : "Personagem não encontrado"
-        })
-    return jsonify(biografia_data)
+@app.route('/area-restrita')
 
-if __name__ == "__main__":
+def area_restrita():
+    print("Tentativa de acesso á area restrita sem autenticação")
+    abort(401)
+
+app.route('/painel-admin')
+def painel_admin():
+    print("Tentativa de acesso ao painel de admin sem permissão")
+    abort(403)
+
+@app.errorhandler(404)
+def pagina_nao_encontrada(error):
+    return render_template('404.html'), 404
+@app.errorhandler(401)
+
+def nao_autorizado(error):
+    return render_template('401.html'), 401
+@app.errorhandler(403)
+
+def acesso_proibido(error):
+    return render_template('403.html'), 403
+
+if __name__ == '__main__':
     app.run(debug=True)
