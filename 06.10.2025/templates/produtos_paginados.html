@@ -4,11 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* Estilo básico para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+
+/* Estilo para a lista de produtos */
+ul {
+    list-style-type: none; /* Remove as marcações padrão */
+    padding: 0;
+}
+
+/* Estilo para cada item da lista */
+li {
+    background: #ffffff; /* Cor de fundo dos itens */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    margin: 10px 0; /* Espaço entre os itens */
+    padding: 15px; /* Espaçamento interno */
+    transition: background 0.3s; /* Efeito de transição */
+}
+
+/* Estilo ao passar o mouse sobre os itens */
+li:hover {
+    background: #e9ecef; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para a navegação */
+nav {
+    margin-top: 20px; /* Espaçamento acima da navegação */
+}
+
+/* Estilo para a lista de páginas */
+.pagination {
+    display: flex; /* Para alinhar os itens em linha */
+    justify-content: center; /* Centraliza a navegação */
+    padding: 0; /* Remove espaço adicional */
+}
+
+/* Estilo para cada item da navegação */
+.page-item {
+    margin: 0 5px; /* Espaço entre os itens */
+}
+
+/* Estilo para os links da navegação */
+.page-link {
+    display: block; /* Para preencher a área clicável */
+    padding: 10px 15px; /* Espaçamento interno */
+    color: #007bff; /* Cor do texto do link */
+    text-decoration: none; /* Remove sublinhado */
+    border: 1px solid #007bff; /* Borda do link */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background 0.3s, color 0.3s; /* Transição suave */
+}
+
+/* Estilo para links ao passar o mouse */
+.page-link:hover {
+    background: #007bff; /* Cor de fundo ao passar o mouse */
+    color: #ffffff; /* Texto branco ao passar o mouse */
+}
+
+/* Estilo para o item ativo */
+.active .page-link {
+    background: #0056b3; /* Cor de fundo ativo */
+    color: #ffffff; /* Texto branco */
+    border-color: #0056b3; /* Borda ativa */
+}
+
+    </style>
 </head>
 <body>
     <ul>
         {% for produto in produtos %}
-            <li>{{ produto.nome }}</li>
+            <a href="{{ url_for('detalhe_produto', produto_id=produto.id) }}"><li>{{ produto.nome }}</li></a>
         {% endfor %}
     </ul>
 

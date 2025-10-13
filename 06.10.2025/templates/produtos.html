@@ -4,6 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* Estilo básico para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilo para o título */
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Estilo para a lista não ordenada */
+ul {
+    list-style-type: none; /* Remove as bolinhas padrão */
+    padding: 0;
+}
+
+/* Estilo para cada item da lista */
+li {
+    background: #ffffff; /* Cor de fundo dos itens */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    margin: 10px 0; /* Espaço entre os itens */
+    padding: 10px 15px; /* Espaçamento interno */
+    transition: background 0.3s; /* Efeito de transição */
+}
+
+/* Estilo ao passar o mouse sobre os itens */
+li:hover {
+    background: #e9ecef; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para os links */
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #007bff; /* Cor do texto do link */
+    font-weight: bold; /* Negrito */
+}
+
+/* Estilo para links ao passar o mouse */
+a:hover {
+    color: #0056b3; /* Cor do texto do link ao passar o mouse */
+}
+
+    </style>
 </head>
 <body>
     <h1>Nossos Produtos</h1>
@@ -16,5 +65,6 @@
             </li>
         {% endfor %}
     </ul>
+    
 </body>
 </html>
