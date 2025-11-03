@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# Dados simulando um "banco de dados"
+#BD 
 quartos = [
     {
         "id": 1,
