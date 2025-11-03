@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>{{ quarto.nome }}</h2>
+
+<img src="{{ quarto.imagem }}" alt="{{ quarto.nome }}" style="max-width: 100%; border-radius: 10px;">
+
+<p>{{ quarto.descricao }}</p>
+<p><strong>Preço:</strong> R$ {{ quarto.preco }} por noite</p>
+
+<a href="{{ url_for('index') }}">⬅ Voltar para lista de quartos</a>
+{% endblock %}

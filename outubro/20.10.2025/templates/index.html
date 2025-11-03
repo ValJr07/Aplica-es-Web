@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Nossas Acomodações</h2>
+<p>Escolha o quarto ideal para sua estadia:</p>
+
+<div class="quartos-container">
+    {% for quarto in quartos %}
+    <div class="quarto-card">
+        <img src="{{ quarto.imagem }}" alt="{{ quarto.nome }}">
+        <h3>{{ quarto.nome }}</h3>
+        <p>{{ quarto.descricao }}</p>
+        <p><strong>R$ {{ quarto.preco }}</strong> / noite</p>
+        <a href="{{ url_for('quarto', id=quarto.id) }}">Ver detalhes</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
