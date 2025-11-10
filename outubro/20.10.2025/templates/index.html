@@ -4,12 +4,12 @@
 <p>Escolha o quarto ideal para sua estadia:</p>
 
 <div class="quartos-container">
-    {% for quarto in quartos %}
+    {% for quarto in todos_quartos %}
     <div class="quarto-card">
         <img src="{{ quarto.imagem }}" alt="{{ quarto.nome }}">
-        <h3>{{ quarto.nome }}</h3>
-        <p>{{ quarto.descricao }}</p>
-        <p><strong>R$ {{ quarto.preco }}</strong> / noite</p>
+        <h3>{{ quarto[1] }}</h3>
+        <p>{{ quarto[3] }}</p>
+        <p><strong>R$ {{ quarto[2] }}</strong> / noite</p>
         <a href="{{ url_for('quarto', id=quarto.id) }}">Ver detalhes</a>
     </div>
     {% endfor %}
