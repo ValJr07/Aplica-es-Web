@@ -3,49 +3,44 @@ import sqlite3
 
 app = Flask(__name__)
 
-connector = sqlite3.connect('Hospedagem.db')
-with connector as connection:
-    cursor = connector.cursor()
+def get_db():
+    conn = sqlite3.connect('Hospedagem.db')
+    conn.row_factory = sqlite3.Row  
+    return conn
 
-    create_table_quarto = '''
-    CREATE TABLE Quarto(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        preco FLOAT,
-        descricao TEXT,
-        imagem TEXT
-    );    
-    '''
+def init_db():
+    conn = get_db()
+    cursor = conn.cursor()
 
-    insert_quarto = '''
-    INSERT INTO Quarto(nome, preco, descricao, imagem)
-    VALUES(?, ?, ?, ?);
-    '''
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Quarto(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            preco FLOAT,
+            descricao TEXT,
+            imagem TEXT
+        );
+    ''')
 
-    delete_quarto = '''
-    DELETE FROM Quarto
-    WHERE id = ?;
-    '''
+    cursor.execute("SELECT COUNT(*) FROM Quarto")
+    if cursor.fetchone()[0] == 0:
+        dados = [
+            ("Suíte Luxo Vista Mar", 550.00, "Ampla, com varanda e vista panorâmica para o mar.", "https://picsum.photos/seed/quarto1/600/400"),
+            ("Suíte Standard", 320.00, "Aconchegante e moderna, ideal para casais.", "https://picsum.photos/seed/quarto2/600/400"),
+            ("Quarto Econômico", 210.00, "Simplicidade e conforto pelo melhor preço.", "https://picsum.photos/seed/quarto3/600/400")
+        ]
 
-    quarto_id = 1
+        cursor.executemany(
+            "INSERT INTO Quarto(nome, preco, descricao, imagem) VALUES (?, ?, ?, ?)",
+            dados
+        )
 
+    conn.commit()
+    conn.close()
 
-    data_quarto1 = ("Suíte Luxo Vista Mar", 550.00, "Ampla, com varanda e vista panorâmica para o mar.", "https://picsum.photos/seed/quarto1/600/400")
-    data_quarto2 = ("Suíte Standard", 320.00, "Aconchegante e moderna, ideal para casais.", "https://picsum.photos/seed/quarto2/600/400")
-    data_quarto3 = ("Quarto Econômico", 210.00, "Simplicidade e conforto pelo melhor preço.", "https://picsum.photos/seed/quarto3/600/400")
+init_db()
 
-    select_quarto = "SELECT * FROM Quarto;"
-
-    cursor.execute(select_quarto)
-
-    todos_quartos = cursor.fetchall()
-
-
-    print("todos os quartos:")
-    for quarto in todos_quartos:
-        print(quarto)
-
-#BD
+#BD antigo
 '''
 quartos = [
     {
@@ -74,14 +69,26 @@ quartos = [
 
 @app.route('/')
 def index():
-    return render_template('index.html', quarto=todos_quartos)
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Quarto")
+    quartos = cursor.fetchall()
+    conn.close()
+
+    return render_template('index.html', quartos=quartos)
 
 @app.route('/quarto/<int:id>')
 def quarto(id):
-    quarto_escolhido = next((q for q in todos_quartos if q["id"] == id), None)
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Quarto WHERE id = ?", (id,))
+    quarto_escolhido = cursor.fetchone()
+    conn.close()
+
     if quarto_escolhido:
         return render_template('quarto.html', quarto=quarto_escolhido)
-    return "<h2>Quarto não encontrado 😢</h2>", 404
+
+    return "<h2>Quarto não encontrado</h2>", 404
 
 if __name__ == '__main__':
     app.run(debug=True)

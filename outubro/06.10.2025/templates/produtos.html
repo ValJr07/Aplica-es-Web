@@ -1,70 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Nossos Produtos</title>
     <style>
-        /* Estilo básico para o corpo da página */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
 
-/* Estilo para o título */
-h1 {
-    color: #333;
-    text-align: center;
-}
+        h1 {
+            color: #333;
+            text-align: center;
+        }
 
-/* Estilo para a lista não ordenada */
-ul {
-    list-style-type: none; /* Remove as bolinhas padrão */
-    padding: 0;
-}
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-/* Estilo para cada item da lista */
-li {
-    background: #ffffff; /* Cor de fundo dos itens */
-    border: 1px solid #ccc; /* Borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    margin: 10px 0; /* Espaço entre os itens */
-    padding: 10px 15px; /* Espaçamento interno */
-    transition: background 0.3s; /* Efeito de transição */
-}
+        li {
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 10px 15px;
+            transition: background 0.3s;
+        }
 
-/* Estilo ao passar o mouse sobre os itens */
-li:hover {
-    background: #e9ecef; /* Cor de fundo ao passar o mouse */
-}
+        li:hover {
+            background: #e9ecef;
+        }
 
-/* Estilo para os links */
-a {
-    text-decoration: none; /* Remove o sublinhado */
-    color: #007bff; /* Cor do texto do link */
-    font-weight: bold; /* Negrito */
-}
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
 
-/* Estilo para links ao passar o mouse */
-a:hover {
-    color: #0056b3; /* Cor do texto do link ao passar o mouse */
-}
-
+        a:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
+
     <h1>Nossos Produtos</h1>
+
     <ul>
         {% for produto in produtos %}
             <li>
                 <a href="{{ url_for('detalhe_produto', produto_id=produto.id) }}">
                     {{ produto.nome }}
-                </a> - R$ {{ "{}".format(produto.preco) }}
+                </a>
+                — R$ {{ "%.2f"|format(produto.preco) }}
             </li>
         {% endfor %}
     </ul>
-    
+
 </body>
 </html>

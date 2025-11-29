@@ -1,97 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Produtos Paginados</title>
+
     <style>
-        /* Estilo básico para o corpo da página */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
-a{
-    color: black;
-    text-decoration: none;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
 
-/* Estilo para a lista de produtos */
-ul {
-    list-style-type: none; /* Remove as marcações padrão */
-    padding: 0;
-}
+        a {
+            color: black;
+            text-decoration: none;
+        }
 
-/* Estilo para cada item da lista */
-li {
-    background: #ffffff; /* Cor de fundo dos itens */
-    border: 1px solid #ccc; /* Borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    margin: 10px 0; /* Espaço entre os itens */
-    padding: 15px; /* Espaçamento interno */
-    transition: background 0.3s; /* Efeito de transição */
-}
+        h1 {
+            text-align: center;
+            color: #222;
+        }
 
-/* Estilo ao passar o mouse sobre os itens */
-li:hover {
-    background: #e9ecef; /* Cor de fundo ao passar o mouse */
-}
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: auto;
+        }
 
-/* Estilo para a navegação */
-nav {
-    margin-top: 20px; /* Espaçamento acima da navegação */
-}
+        li {
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 15px;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
 
-/* Estilo para a lista de páginas */
-.pagination {
-    display: flex; /* Para alinhar os itens em linha */
-    justify-content: center; /* Centraliza a navegação */
-    padding: 0; /* Remove espaço adicional */
-}
+        li:hover {
+            background: #e9ecef;
+        }
 
-/* Estilo para cada item da navegação */
-.page-item {
-    margin: 0 5px; /* Espaço entre os itens */
-}
+        nav {
+            margin-top: 20px;
+        }
 
-/* Estilo para os links da navegação */
-.page-link {
-    display: block; /* Para preencher a área clicável */
-    padding: 10px 15px; /* Espaçamento interno */
-    color: #007bff; /* Cor do texto do link */
-    text-decoration: none; /* Remove sublinhado */
-    border: 1px solid #007bff; /* Borda do link */
-    border-radius: 5px; /* Bordas arredondadas */
-    transition: background 0.3s, color 0.3s; /* Transição suave */
-}
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
 
-/* Estilo para links ao passar o mouse */
-.page-link:hover {
-    background: #007bff; /* Cor de fundo ao passar o mouse */
-    color: #ffffff; /* Texto branco ao passar o mouse */
-}
+        .page-item {
+            margin: 0 5px;
+        }
 
-/* Estilo para o item ativo */
-.active .page-link {
-    background: #0056b3; /* Cor de fundo ativo */
-    color: #ffffff; /* Texto branco */
-    border-color: #0056b3; /* Borda ativa */
-}
+        .page-link {
+            display: block;
+            padding: 10px 15px;
+            color: #007bff;
+            text-decoration: none;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
 
+        .page-link:hover {
+            background: #007bff;
+            color: #fff;
+        }
+
+        .active .page-link {
+            background: #0056b3;
+            color: #fff;
+            border-color: #0056b3;
+        }
     </style>
 </head>
 <body>
+
+    <h1>Produtos</h1>
+
     <ul>
         {% for produto in produtos %}
-            <a href="{{ url_for('detalhe_produto', produto_id=produto.id) }}"><li>{{ produto.nome }}</li></a>
+            <li>
+                <a href="{{ url_for('detalhe_produto', produto_id=produto.id) }}">
+                    {{ produto.nome }}
+                </a>
+
+                <span>R$ {{ "%.2f"|format(produto.preco) }}</span>
+            </li>
         {% endfor %}
     </ul>
 
     <nav>
         <ul class="pagination">
-            {% for page_num in range(1,total_pages +1) %}
-                <li class="page-item" {% if page == page_num %}active{% endif %}>
+            {% for page_num in range(1, total_pages + 1) %}
+                <li class="page-item {% if page == page_num %}active{% endif %}">
                     <a href="{{ url_for('listar_produtos_paginados', page=page_num) }}" class="page-link">
                         {{ page_num }}
                     </a>
@@ -99,5 +110,6 @@ nav {
             {% endfor %}
         </ul>
     </nav>
+
 </body>
 </html>
